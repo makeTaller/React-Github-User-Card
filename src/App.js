@@ -1,7 +1,8 @@
 import React from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
+import UserCard from './components/User'
+import Nav from './components/Navbar'
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
     constructor() {
@@ -16,18 +17,24 @@ class App extends React.Component {
         const axios = require('axios');
         axios
             .get("https://api.github.com/users/maketaller")
-            .then(res =>{this.setState({user: res.data})})
+            .then(res =>{
+                console.log(res.data);
+                this.setState({user: res.data})})
             .catch(err => console.log(err))
     }
 
   render(){
   return (
     <div className="App">
+      <Nav username={this.state.user.login}/>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
             Kirk is the Main!
+            {console.log(this.state.user.avatar_url)}
         </p>
+        <UserCard
+            imgurl={this.state.user.avatar_url}
+        />
       </header>
     </div>
     );
